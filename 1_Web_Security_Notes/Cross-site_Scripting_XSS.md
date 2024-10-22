@@ -113,7 +113,7 @@ Cross-Site Scripting (XSS) is a vulnerability that allows attackers to inject ma
         - Inject payloads into URL parameters and hash fragments to see if the input is reflected in the DOM without sanitization.
 
 ## XSS Testing Checklist
-1. Test Input Fields: Inject <script>alert(1)</script> and event handlers (e.g., ```onerror```) into various input fields and check for script execution.
+1. Test Input Fields: Inject ```<script>alert(1)</script>``` and event handlers (e.g., ```onerror```) into various input fields and check for script execution.
 2. Check HTML Attributes: Inject payloads into ```href```, ```src```, and other attributes to see if JavaScript is executed.
 3. Test URL and Query Parameters: Attempt to inject XSS via URL parameters and observe if the payload is reflected or executed.
 4. Inspect Client-Side Code: Look for unsafe handling of user input in client-side JavaScript (e.g., ```innerHTML```, ```eval()```).
