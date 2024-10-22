@@ -119,7 +119,7 @@ This could allow the attacker to access the ```/etc/passwd``` file, potentially 
 
     - Test URL Encoding:
 
-        - Encode traversal sequences as %2E%2E%2F and inject them into file path parameters.
+        - Encode traversal sequences as ```%2E%2E%2F``` and inject them into file path parameters.
 2. Automated Tools
     - Burp Suite:
 
@@ -134,7 +134,7 @@ This could allow the attacker to access the ```/etc/passwd``` file, potentially 
 4. Monitor Server Responses
     - Look for Indicators of Traversal:
     - Success indicators include:
-        - The presence of file content (e.g., the /etc/passwd file being displayed).
+        - The presence of file content (e.g., the ```/etc/passwd``` file being displayed).
         - Error messages such as "file not found" or "access denied" indicating traversal attempts are occurring.
 
 ## Path Traversal Defense Checklist
