@@ -1,4 +1,4 @@
-# SECNOTES: Security Notes
+# SECNOTES
 **Created By**: Geoffrey G. Lord
 
 **Created On**: Oct 22 2024

@@ -62,7 +62,7 @@ Clickjacking (also known as UI Redressing) is an attack that tricks a user into 
 - Directives:
     - ```DENY```: Prevents the page from being framed by any site.
     - ```SAMEORIGIN```: Allows framing only from the same origin (domain).
-    - ```ALLOW-FROM`` uri: Allows framing only from specific, trusted origins (deprecated in modern browsers).
+    - ```ALLOW-FROM``` uri: Allows framing only from specific, trusted origins (deprecated in modern browsers).
 - Testing:
     - Check the HTTP response headers for ```X-Frame-Options```.
     - Attempt to load the page in an iframe; if the header is configured correctly, the browser should block it.
