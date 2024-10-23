@@ -8,18 +8,39 @@
 This repo is to be used to reference infromation that pertains to security testing and evaluation. In this repo, one will find brief notes and examples of common security findings, usage of common tools, and scripting examples. Listed below is a brief discription of the contents of each directory. 
 
 
-- **Web_Security_Notes**: Contains notes on common web security vulnerabilities. Most information corresponds to the Portswingger Academy Learning Paths. This directory can serve as a starting point for web application testing. 
 
-- **Scripting_Notes**: This directory contains scripting examples that may may be used for security testing. (API Call Example, Data Parsing Example...)
 
-- **Security_Testing_Tools**: In this directory are notes on common security evaluation tools (SAST, DAST, Fuzzing...)
+## Contents
 
-- **Security_Control_Tools**: This directory contains notes on non-testing security tooling. (IPTables, Auditd...)
+1. ```1_Web_Security_Notes```:
+    - **Description**: Contains notes on common web security vulnerabilities. Most information corresponds to the Portswingger Academy Learning Paths. This directory can serve as a starting point for web application testing. 
+    - **Examples**: (API Testing, Clickjacking, CSRF, XSS, SQLi, Path Traversal)
 
-- **MSC_Notes**: This directory contains random notes. (Bash & Powershell Commands)
+2. ```2_Security_Testing_Tools```:
+    - **Description**: In this directory are notes on common security evaluation tools. 
+    - **Sub-Directories**: 
+        - ```SAST```: Static Application Security Testing
+        - ```DAST```: Dynamic Application Security Testing
+        - Container/Cloud Security Testing
+        - OS Security Testing
+    - **Examples**: (BurpSuite, Trivy, OWASP ZAP, OpenVAS)
 
-**Tempest**:
--
+3. ```3_Security_Control_Tools```:
+    - **Description**: This directory contains notes on non-testing security tooling. 
+    - **Examples**: (IPTables, Auditd)
+
+4. ```4_Scripting_Notes```:
+    - **Description**: This directory contains scripting examples that may may be used for security testing. (API Call Example, Data Parsing Example...)
+    - **Examples**: (Python API Call Sript, Python CSV Parsting Script, Python Regex Search Script)
+
+5. ```5_MSC_Tools_Notes```: 
+    - **Description**: This directory contains notes on everyday tools commonly used by a security engineer. 
+    - **Examples**: (Grep, Hexedit, GDB, Regex)
+
+
+
+## Tempest:
+
 In addition to security notes, this repo contains a dockerfile called Tempest. This dockerfile contains common dependencies and tooling that may prove useful for security testing. 
 
 **To Built**: ```docker build --tag tempest .```
@@ -28,3 +49,15 @@ In addition to security notes, this repo contains a dockerfile called Tempest. T
 
 
 *Note*: This repo is a living sheet of notest. Changes and improvements are to be expected. 
+
+
+## TODO
+- [ ] OpenVAS
+- [ ] Nessus
+- [ ] Security Control Tools
+     - [ ] IP Tables
+     - [ ] AuditD
+     - [ ] SELinux
+    
+- [ ] More Scripting Examples
+- [ ] Create Tempest
