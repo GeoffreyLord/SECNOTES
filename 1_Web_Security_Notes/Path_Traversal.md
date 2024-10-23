@@ -9,11 +9,13 @@ When a web application accepts user input to specify file paths (e.g., through U
 **Example of Path Traversal**:
 
 A vulnerable web application includes a file like this:
--  ```http://example.com/get-file?filename=report.pdf```
+
+    http://example.com/get-file?filename=report.pdf
 
 If the input is not properly validated, an attacker can manipulate the filename parameter to traverse directories:
 
-- ```http://example.com/get-file?filename=../../../../etc/passwd```
+
+    http://example.com/get-file?filename=../../../../etc/passwd
 
 This could allow the attacker to access the ```/etc/passwd``` file, potentially leaking sensitive information.
 
@@ -21,44 +23,52 @@ This could allow the attacker to access the ```/etc/passwd``` file, potentially 
 1. Accessing Sensitive Files
     - Description: Attackers use path traversal to access sensitive files stored on the server, such as ```/etc/passwd``` (Linux) or ```C:\Windows\System32``` (Windows).
     - Example:
-        - ```http://example.com/get-file?filename=../../../../etc/passwd```
+        
+            http://example.com/get-file?filename=../../../../etc/passwd
     - Impact: The attacker can read configuration files, password hashes, or other sensitive data.
 2. Source Code Disclosure
     - Description: Attackers may use path traversal to access and read the source code of the web application, gaining insight into potential vulnerabilities.
     - Example:
-        - ```http://example.com/get-file?filename=../../../../var/www/html/index.php```
+        
+            http://example.com/get-file?filename=../../../../var/www/html/index.php
     - Impact: Exposing source code can reveal hardcoded credentials, security misconfigurations, or logic flaws.
 3. Log File Access
     - Description: Attackers can access log files to gain information about the system, application, or users.
     - Example:
-        - ```http://example.com/get-file?filename=../../../../var/log/apache2/access.log```
+        
+            http://example.com/get-file?filename=../../../../var/log/apache2/access.log
     - Impact: Log files can contain sensitive information such as user activity, IP addresses, or error messages that expose further vulnerabilities.
 4. File Overwrite / Manipulation
     - Description: In some cases, path traversal can be used to overwrite or manipulate server-side files, potentially leading to code execution or defacement.
     - Example:
-        - ```http://example.com/upload?filename=../../../../var/www/html/index.html```
+        
+            http://example.com/upload?filename=../../../../var/www/html/index.html
     - Impact: Overwriting key files like web pages or configuration files can result in website defacement or backdoor installation.
 
 ## Path Traversal Variants
 1. Absolute Path Traversal
     - Description: The attacker specifies an absolute file path to access sensitive files directly.
     - Example:
-        - ```http://example.com/get-file?filename=/etc/passwd```
+        
+            http://example.com/get-file?filename=/etc/passwd
     - Impact: Allows direct access to sensitive files if the application does not sanitize absolute paths.
 2. Relative Path Traversal
     - Description: The attacker uses relative paths (e.g., ```../../```) to navigate the directory structure and access files.
     - Example:
-        - ```http://example.com/get-file?filename=../../../../etc/passwd```
+        
+            http://example.com/get-file?filename=../../../../etc/passwd
     - Impact: Exploits improper validation of file paths, enabling access to files outside the web root.
 3. URL-Encoding
     - Description: Attackers URL-encode special characters (```../``` as ```%2E%2E%2F```) to bypass basic input validation or filtering.
     - Example:
-        - ```http://example.com/get-file?filename=%2E%2E%2F%2E%2E%2F%2E%2E%2Fetc/passwd```
+        
+            http://example.com/get-file?filename=%2E%2E%2F%2E%2E%2F%2E%2E%2Fetc/passwd
     - Impact: Bypasses filters that only check for plaintext ```../``` sequences, allowing traversal attacks to succeed.
 4. Null Byte Injection
     - Description: In older systems, a null byte (```%00```) could terminate strings early, potentially bypassing extensions or input sanitization.
     - Example:
-        - ```http://example.com/get-file?filename=../../../../etc/passwd%00.txt```
+        
+            http://example.com/get-file?filename=../../../../etc/passwd%00.txt
     - Impact: The server may terminate the filename at the null byte, accessing the target file instead of the sanitized one.
 
 ## Path Traversal Exploitation Techniques
@@ -115,7 +125,8 @@ This could allow the attacker to access the ```/etc/passwd``` file, potentially 
 
         - Test with simple ```../``` sequences in user-controllable fields to see if traversal is possible.
         - Example:
-            - ```http://example.com/get-file?filename=../../../../etc/passwd```
+            
+                http://example.com/get-file?filename=../../../../etc/passwd
 
     - Test URL Encoding:
 

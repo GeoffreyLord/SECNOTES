@@ -44,7 +44,8 @@ File upload vulnerabilities occur when web applications allow users to upload fi
 1. Uploading a Web Shell
     - Technique: Upload a file with server-side code (e.g., a PHP or JSP web shell) and execute it by visiting the uploaded file.
     - Example:
-        - ```<?php system($_GET['cmd']); ?>```
+        
+            <?php system($_GET['cmd']); ?>
     - Testing:
         - Upload the web shell to the server.
         - Access the uploaded file via a browser and append a command to the URL (e.g., ```?cmd=ls```).

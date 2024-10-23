@@ -7,48 +7,56 @@ SQL Injection (SQLi) is a vulnerability that occurs when an attacker is able to 
 **Basic SQL Query Structure**
 
 - A typical SQL query might look like:
-    - ```SELECT * FROM users WHERE username = 'user' AND password = 'pass';```
+    
+        SELECT * FROM users WHERE username = 'user' AND password = 'pass';
 - If an application directly inserts user input into this query, an attacker could manipulate the input to alter the query's behavior.
 
 **Example of an SQL Injection**
 
 - An attacker provides the following as the username:
 
-    - ```' OR '1'='1```
+    
+        ' OR '1'='1
     - This changes the query to:
-    - ```SELECT * FROM users WHERE username = '' OR '1'='1' AND password = 'pass';```
+    
+            SELECT * FROM users WHERE username = '' OR '1'='1' AND password = 'pass';
 - This query will always evaluate to true (```'1'='1'```), allowing the attacker to bypass authentication.
 
 ## Types of SQL Injection
 1. Classic SQL Injection (In-Band SQLi)
     - Description: The attacker directly manipulates the SQL query via the application's input fields and retrieves data in the response.
     - Example:
-        - ```' OR 1=1--```
+        
+            ' OR 1=1--
         - This will cause the query to return all rows from the table.
     - Impact: Can lead to full database access or modification.
 2. Union-Based SQL Injection
     - Description: The attacker uses the UNION SQL operator to combine results from multiple queries.
     - Example:
-        - ```' UNION SELECT username, password FROM admin--```
+        
+            ' UNION SELECT username, password FROM admin--
         - This merges the results of the initial query with the results from a sensitive table (e.g., the admin table).
     - Impact: Exposes additional data from different tables in the database.
 3. Boolean-Based Blind SQL Injection
     - Description: The attacker cannot see query results directly but uses true/false conditions to infer the database structure.
     - Example:
-        - ```' AND 1=1--```
-        - ```' AND 1=2--```
+        
+            ' AND 1=1--
+            ' AND 1=2--
         - The attacker can test these conditions by observing changes in the application’s behavior (e.g., error messages, response delays).
     - Impact: Can slowly reveal data even without direct query output.
 4. Time-Based Blind SQL Injection
     - Description: The attacker uses SQL commands that cause time delays to infer the response based on query execution time.
     - Example:
-        - ```' OR IF(1=1, SLEEP(5), 0)--```
+        
+            ' OR IF(1=1, SLEEP(5), 0)--
         - This query will pause the database for 5 seconds if the condition (```1=1```) is true.
     - Impact: Allows attackers to extract information by causing noticeable delays in responses.
 5. Error-Based SQL Injection
     - Description: The attacker causes the application to return detailed database error messages that expose the query structure.
     - Example:
-        - ```' OR 1=CONVERT(int, 'abc')--```
+        
+            ' OR 1=CONVERT(int, 'abc')--
         - The error message returned may provide useful information about the database schema and query structure.
     - Impact: Provides detailed information for crafting more sophisticated attacks.
 6. Second-Order SQL Injection
@@ -78,11 +86,14 @@ SQL Injection (SQLi) is a vulnerability that occurs when an attacker is able to 
     - Technique: Extract the database schema, including table names and column structures.
     - Testing:
         - For MySQL:
-            - ```' UNION SELECT table_name FROM information_schema.tables WHERE table_schema=database()--```
+            
+                ' UNION SELECT table_name FROM information_schema.tables WHERE table_schema=database()--
         - For PostgreSQL:
-            - ```' UNION SELECT table_name FROM information_schema.tables WHERE table_catalog=current_database()--```
+            
+                ' UNION SELECT table_name FROM information_schema.tables WHERE table_catalog=current_database()--
         - Extract table names and then enumerate columns using:
-            - ```' UNION SELECT column_name FROM information_schema.columns WHERE table_name='users'--```
+            
+                ' UNION SELECT column_name FROM information_schema.columns WHERE table_name='users'--
 4. Extracting Data via Blind SQL Injection
     - Technique: Use boolean-based or time-based techniques to slowly extract sensitive data.
     - Testing:
@@ -101,7 +112,8 @@ SQL Injection (SQLi) is a vulnerability that occurs when an attacker is able to 
         - Use parameterized queries in all database interactions.
         - Avoid dynamic query building with user input directly inserted into SQL strings.
     - Example (in Python with MySQL):
-        - ```cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", (user, password))```
+        
+            cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", (user, password))
 2. Stored Procedures
     - Description: Stored procedures are pre-defined SQL queries that run on the database server, reducing the risk of SQL injection if written correctly.
     - Best Practices:
@@ -150,7 +162,8 @@ SQL Injection (SQLi) is a vulnerability that occurs when an attacker is able to 
 
         - A powerful tool for automating the discovery and exploitation of SQL injection vulnerabilities.
         - Run SQLMap on known endpoints to test for vulnerabilities:
-            - ```sqlmap -u "http://example.com?id=1" --dbs```
+            
+                sqlmap -u "http://example.com?id=1" --dbs
         - Use SQLMap to enumerate databases, tables, and columns and extract data.
     - Burp Suite:
 

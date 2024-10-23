@@ -25,8 +25,9 @@ The caching mechanism may treat this URL as a static resource (e.g., an image) a
 2. URL Manipulation
     - Description: Attackers add file extensions (e.g., ```.jpg```, ```.css```, ```.js```) or query parameters to URLs, tricking the cache into treating the response as a static resource.
     - Example:
-        - ```http://example.com/account.jpg```
-        - ```http://example.com/settings.css```
+        
+            http://example.com/account.jpg
+            http://example.com/settings.css
         - These URLs might be cached, exposing sensitive data meant for the authenticated user.
 3. Misconfigured Cache-Control Headers
     - Description: If cache-control headers are missing or misconfigured, responses containing personalized content may be cached.
@@ -37,22 +38,25 @@ The caching mechanism may treat this URL as a static resource (e.g., an image) a
 1. Appending File Extensions
     - Description: Attackers append file extensions (e.g., ```.jpg```, ```.css```, ```.pdf```) to URLs that return dynamic content. This tricks the cache into treating the URL as a static resource.
     - Example:
-        - ```http://example.com/user-dashboard```
-        - ```http://example.com/user-dashboard.css```
+        
+            http://example.com/user-dashboard
+            http://example.com/user-dashboard.css
 
         - The second URL might return the same personalized dashboard but be cached due to the ```.css``` extension.
 
 2. Modifying Query Parameters
     - Description: Attackers add query parameters or manipulate existing ones to bypass cache controls.
     - Example:
-        - ```http://example.com/orders?user=123```
-        - ```http://example.com/orders?user=123&static=true```
+        
+            http://example.com/orders?user=123
+            http://example.com/orders?user=123&static=true
         - If the second request is cached, it may expose sensitive order data to subsequent users requesting the same URL.
 3. Caching Resources Based on User Sessions
     - Description: Pages personalized for logged-in users may be cached if session-based URLs are not properly configured with cache-control headers.
     - Example:
         - An application exposes URLs like:
-        - ```http://example.com/profile?user=123```
+        
+                http://example.com/profile?user=123
         - Without proper cache control, the profile page for user 123 could be cached and served to others.
 ## Real-World Impacts of Web Cache Deception
 1. Sensitive Data Exposure
@@ -72,14 +76,16 @@ The caching mechanism may treat this URL as a static resource (e.g., an image) a
 1. URL Manipulation
     - Technique: Append various file extensions (e.g., ```.jpg```, ```.css```) to dynamic URLs that generate personalized content.
     - Example:
-        - ```http://example.com/account```
-        - ```http://example.com/account.jpg```
+        
+            http://example.com/account
+            http://example.com/account.jpg
         - Test if the ```.jpg``` version is cached and returns the same content as the original, personalized page.
 2. Query String Manipulation
     - Technique: Add or modify query parameters to trick the server into caching dynamic content.
     - Example:
-        - ```http://example.com/profile?user=1```
-        - ```http://example.com/profile?user=1&cache=true```
+        
+            http://example.com/profile?user=1
+            http://example.com/profile?user=1&cache=true
         - Test if the additional query string causes the response to be cached.
 3. Testing with Multiple Sessions
     - Technique: Log in as different users and request sensitive pages, then manipulate the URLs (e.g., by adding extensions) to check if cached versions of other users’ pages are accessible.
@@ -116,15 +122,17 @@ The caching mechanism may treat this URL as a static resource (e.g., an image) a
 
         - Append common file extensions (e.g., ```.jpg```, ```.png```, ```.css```) to dynamic URLs and check if the response is cached.
         - Example:
-            - ```http://example.com/profile```
-            - ```http://example.com/profile.jpg```
+            
+                http://example.com/profile
+                http://example.com/profile.jpg
             - Test if the ```.jpg``` version exposes personalized content.
     - Test with Query Strings:
 
         - Add or modify query strings and parameters in URLs to test if dynamic content is cached incorrectly.
         - Example:
-            - ```http://example.com/orders?user=123```
-            - ```http://example.com/orders?user=123&cache=true```
+                
+                http://example.com/orders?user=123
+                http://example.com/orders?user=123&cache=true
 2. Cross-Session Testing
     - Test as Multiple Users:
         - Log in with different accounts, request sensitive pages, and manipulate the URLs to test if cached responses from one session are accessible to other users.
@@ -139,7 +147,8 @@ The caching mechanism may treat this URL as a static resource (e.g., an image) a
     - Review HTTP Responses:
         - Inspect HTTP response headers to ensure proper cache-control headers are applied (e.g., ```Cache-Control: private```, ```no-store```).
         - Example of a secure header:
-            - ```Cache-Control: no-store, no-cache, must-revalidate```
+            
+                Cache-Control: no-store, no-cache, must-revalidate
 
 ## Web Cache Deception Defense Checklist
 1. Use Cache-Control Headers:

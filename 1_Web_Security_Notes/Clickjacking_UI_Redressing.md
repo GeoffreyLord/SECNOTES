@@ -80,7 +80,8 @@ Clickjacking (also known as UI Redressing) is an attack that tricks a user into 
 **Frame Busting Scripts**
 - Purpose: Use JavaScript to detect when a page is loaded in an iframe and prevent framing.
 - Example:
-```if (self !== top) {top.location = self.location;} ```
+
+        if (self !== top) {top.location = self.location;}
 
 - Limitations:
     - Modern browsers may block frame busting scripts as a security feature.

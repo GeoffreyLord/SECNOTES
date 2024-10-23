@@ -6,7 +6,8 @@ NoSQL Injection occurs when attackers exploit unvalidated input in NoSQL databas
 1. Direct Query Manipulation
     - Description: NoSQL queries are often constructed with JSON-like syntax. If input is not sanitized, attackers can inject additional query logic.
     - Example (MongoDB):
-        - ```{"username": "admin", "password": {"$ne": null}}```
+        
+            {"username": "admin", "password": {"$ne": null}}
         - This bypasses the password check by using the $ne operator to accept any password.
     - Risk: Attackers can bypass authentication or query unauthorized data.
 2. Operator Injection
@@ -17,7 +18,8 @@ NoSQL Injection occurs when attackers exploit unvalidated input in NoSQL databas
 3. Array Injection
     - Description: NoSQL databases, like MongoDB, allow arrays in queries. Attackers can exploit this feature to manipulate query logic.
     - Example (MongoDB):
-        - ```{"username": ["admin", "guest"], "password": {"$ne": null}}```
+        
+            {"username": ["admin", "guest"], "password": {"$ne": null}}
         - This query checks both "admin" and "guest" users, potentially expanding the attack surface.
     - Risk: Enables attackers to manipulate how the query operates on multiple documents.
 
@@ -31,13 +33,15 @@ NoSQL Injection occurs when attackers exploit unvalidated input in NoSQL databas
     - Technique: Inject NoSQL logic into fields to bypass authentication.
     - Example:
         - For a login form that checks both username and password, inject a query like:
-            - ```{"username": "admin", "password": {"$gt": ""}}```
+            
+                {"username": "admin", "password": {"$gt": ""}}
         - If successful, this will bypass the password check.
 3. Boolean-Based Blind NoSQL Injection
     - Technique: Infer database behavior through injected queries and response variations.
     - Testing:
         - Send queries like:
-            - ```{"username": "admin", "password": {"$regex": "^a"}}```
+            
+                {"username": "admin", "password": {"$regex": "^a"}}
         - Observe changes in response times or behavior to infer if the query was successful.
 ## Defenses Against NoSQL Injection
 1. Input Validation and Sanitization
@@ -48,7 +52,8 @@ NoSQL Injection occurs when attackers exploit unvalidated input in NoSQL databas
     - Description: Similar to SQL, use parameterized queries to avoid dynamically building NoSQL queries with user inputs.
     - Example (MongoDB):
         - Avoid:
-            - ```db.users.find({username: userInput, password: passInput})```
+            
+                db.users.find({username: userInput, password: passInput})
         - Use parameterized queries or predefined query structures.
 3. Limit Query Operators
     - Description: Restrict the use of operators like ```$gt```, ```$ne```, or ```$regex``` in fields that are user-controlled.

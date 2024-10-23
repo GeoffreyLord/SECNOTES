@@ -26,7 +26,8 @@ A vulnerable web application processes multiple requests to update a user's bala
     - Description: A data race occurs when two or more processes try to read and write shared data at the same time without synchronization.
     - Example:
         - Two threads attempt to increment a shared counter simultaneously, leading to incorrect results.
-        - ```counter += 1```
+        
+                counter += 1
         - Without proper locking, both threads could read the same value, increment it, and store the same result, leading to lost updates.
     - Impact: Causes data corruption or unexpected behavior.
 3. File System Race Conditions

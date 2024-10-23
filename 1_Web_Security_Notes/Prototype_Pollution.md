@@ -29,7 +29,7 @@ This can lead to unauthorized access or other unexpected behavior.
     - Description: Attackers directly inject properties into the ```Object.prototype``` or another prototype through user input.
     - Example:
 
-        - ```const userInput = { "__proto__": { "isAdmin": true } }; Object.assign({}, userInput);```
+            const userInput = { "__proto__": { "isAdmin": true } }; Object.assign({}, userInput);
 
         - This adds the ```isAdmin``` property to all objects created from ```Object```.
 
@@ -38,15 +38,17 @@ This can lead to unauthorized access or other unexpected behavior.
     - Description: Attackers can inject properties that may lead to vulnerabilities in the application logic or trigger unexpected behavior in other parts of the system.
     - Example:
         - Injecting dangerous properties like ```constructor```, ```toString```, or overriding default object methods.
-        - ```const data = { "__proto__": { "toString": () => "Hacked!" } };```
+            
+                const data = { "__proto__": { "toString": () => "Hacked!" } };
         - This could cause built-in methods like ```toString()``` to behave differently or expose sensitive data.
     - Impact: Breaking built-in methods or altering the system's behavior can lead to data leakage or the application functioning improperly.
 3. Denial of Service via Prototype Pollution
     - Description: Attackers can pollute the prototype to inject properties that cause infinite loops, crashes, or resource exhaustion.
     - Example:
         - Injecting properties like ```__proto__``` with an object that causes infinite recursion.
-        - ```const data = { "__proto__": { "key": {} } };```
-        - ```Object.assign({}, data);```
+        
+                const data = { "__proto__": { "key": {} } };
+                Object.assign({}, data);
     - Impact: This can result in a denial-of-service (DoS) attack, crashing the server or freezing the application.
 
 
@@ -54,23 +56,26 @@ This can lead to unauthorized access or other unexpected behavior.
 1. Object Merging Functions
     - Technique: Exploit functions like ```Object.assign()```, ```_.merge()```, or ```$.extend()``` that combine user input with objects.
     - Example:
-        - ```const settings = {};```
-        - ```Object.assign(settings, userInput);```
-        = Injecting ```__proto__``` in the userInput will modify the prototype, affecting all objects.
+        
+            const settings = {};
+            Object.assign(settings, userInput);
+        - Injecting ```__proto__``` in the userInput will modify the prototype, affecting all objects.
 2. Manipulating Object Prototype
     - Technique: Inject properties into ```Object.prototype``` to override default properties or add new ones.
     - Example:
-        - ```const userInput = { "__proto__": { "admin": true } };```
-        - ```const user = Object.assign({}, userInput);``` 
-        - ```console.log(user.admin); // true```
-        - ```console.log({}.admin);   // true```
+        
+            const userInput = { "__proto__": { "admin": true } };
+            const user = Object.assign({}, userInput);
+            console.log(user.admin); // true
+            console.log({}.admin);   // true
     - This adds ```admin``` to the global object prototype.
 3. Third-Party Libraries
     - Technique: Some third-party libraries (like Lodash or jQuery) have vulnerable functions that can be exploited for prototype pollution.
     - Example:
         - Exploiting Lodash's ```_.merge()``` function with polluted data:
-        - ```const userInput = { "__proto__": { "isAdmin": true } };```
-        - ```_.merge({}, userInput);```
+            
+                const userInput = { "__proto__": { "isAdmin": true } };
+                _.merge({}, userInput);
     - This affects the global prototype chain.
 
 
@@ -98,7 +103,8 @@ This can lead to unauthorized access or other unexpected behavior.
     - Description: Use ```Object.create(null)``` to create objects that don’t inherit from ```Object.prototype```, making them immune to prototype pollution.
     - Best Practices:
         - Avoid using plain objects ```{}``` when dealing with user input. Instead, use ```Object.create(null)``` for safer objects.
-        - ```const safeObject = Object.create(null);```
+        
+                const safeObject = Object.create(null);
 3. Limit Use of Object.assign() and Similar Functions
     - Description: Avoid using functions like ```Object.assign()``` or ```_.merge()``` without proper input sanitization, as these functions can copy properties to the prototype.
     - Best Practices:
@@ -112,16 +118,18 @@ This can lead to unauthorized access or other unexpected behavior.
     - Description: Use ```Object.freeze()``` to prevent further modifications to critical objects like ```Object.prototype```.
     - Best Practices:
         - Freeze the prototype of objects that should not be modified.
-        - ```Object.freeze(Object.prototype);```
+                
+                Object.freeze(Object.prototype);
 
 ## Testing for Prototype Pollution
 1. Manual Testing
     - Inject Polluted Input:
         - Inject input like ```{"__proto__": {"isAdmin": true}}``` and check if the prototype is affected.
         - Example:
-            - ```const userInput = { "__proto__": { "isAdmin": true } };```
-            - ```Object.assign({}, userInput);```
-            - ```console.log({}.isAdmin); // true```
+                
+                const userInput = { "__proto__": { "isAdmin": true } };
+                Object.assign({}, userInput);
+                console.log({}.isAdmin); // true
 2. Automated Testing Tools
     - Prototype Pollution Scanners:
         - Use tools like HackerOne's Prototype Pollution Detection to test for vulnerable libraries and methods in your code.

@@ -28,18 +28,24 @@ Cross-Site Request Forgery (CSRF) is an attack where an attacker tricks a user i
 1. GET-Based CSRF
     - Description: The attacker tricks the victim into making a GET request with parameters that result in actions on the target application.
     - Example:
-        - ```<img src="http://vulnerable.com/transfer?amount=1000&to=attacker_account">```
+       
+            <img src="http://vulnerable.com/transfer?amount=1000&to=attacker_account">
     - Risk: Any sensitive action triggered by GET requests is vulnerable.
 2. POST-Based CSRF
     - Description: The attacker uses an HTML form or JavaScript to send a forged POST request.
     - Example:
-            
-        - ```<form action="http://vulnerable.com/change_email" method="POST"><input type="hidden" name="email" value="attacker@example.com"></form><script>document.forms[0].submit();</script>```
+        
+            <script> 
+                <form action="http://vulnerable.com/change_email" method="POST">
+                    <input type="hidden" name="email" value="attacker@example.com">
+                </form><script>document.forms[0].submit();
+            </script>
     - Risk: Sensitive state-changing operations (e.g., password changes, funds transfers) performed via POST requests can be exploited.
 3. Image Tag CSRF
     - Description: An attacker places an image tag that triggers a GET request to the target application.
     - Example:
-        - ```<img src="http://vulnerable.com/vote?candidate=attacker">```
+        
+            <img src="http://vulnerable.com/vote?candidate=attacker">
     - Risk: Even though the request is embedded in an image, it can still trigger actions.
 4. CSRF via JavaScript
     - Description: If the application allows cross-origin requests, JavaScript can be used to send requests.
