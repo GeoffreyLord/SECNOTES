@@ -30,11 +30,11 @@ This repo is to be used to reference infromation that pertains to security testi
     - **Examples**: (IPTables, Auditd)
 
 4. ```4_Scripting_Notes```:
-    - **Description**: This directory contains scripting examples that may may be used for security testing. (API Call Example, Data Parsing Example...)
-    - **Examples**: (Python API Call Sript, Python CSV Parsting Script, Python Regex Search Script)
+    - **Description**: This directory contains scripting examples that may may be used for security testing. 
+    - **Examples**: (Python API Call Script, Python CSV Parsing Script, Python Regex Search Script)
 
 5. ```5_MSC_Tools_Notes```: 
-    - **Description**: This directory contains notes on everyday tools commonly used by a security engineer. 
+    - **Description**: This directory contains notes on everyday tools commonly used during security evaluations. 
     - **Examples**: (Grep, Hexedit, GDB, Regex)
 
 
@@ -48,7 +48,7 @@ In addition to security notes, this repo contains a dockerfile called Tempest. T
 **To Run**: ```docker run --rm -it tempest```
 
 
-*Note*: This repo is a living sheet of notest. Changes and improvements are to be expected. 
+*Note*: This repo is a living sheet of notes. Changes and improvements are to be expected. 
 
 
 ## TODO
