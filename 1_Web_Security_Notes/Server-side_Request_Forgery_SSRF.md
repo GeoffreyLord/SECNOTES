@@ -19,7 +19,7 @@ An attacker can modify the url parameter to target internal systems:
 
 ## Types of SSRF
 1. Basic SSRF
-    - Description: The attacker controls the target URL, allowing them to interact with internal services or retrieve sensitive data.
+    - Description: The attacker controls the target ```URL```, allowing them to interact with internal services or retrieve sensitive data.
     - Example:
         - ```http://example.com/fetch?url=http://127.0.0.1/admin```
         - This could expose sensitive admin interfaces or internal services.
@@ -96,7 +96,7 @@ An attacker can modify the url parameter to target internal systems:
         - Only allow requests to trusted domains and IP addresses.
         - Avoid allowing arbitrary URL inputs from users.
 2. Blacklist Internal IP Ranges
-    - Description: Block access to internal IP addresses (e.g., 127.0.0.1, 192.168.x.x, 10.x.x.x) to prevent access to internal resources.
+    - Description: Block access to internal IP addresses (e.g., ```127.0.0.1```, ```192.168.x.x```, ```10.x.x.x```) to prevent access to internal resources.
     - Best Practices:
         - Implement firewalls or network rules to block requests to internal/private IP ranges.
         - Use regular expressions or IP filtering to block requests to internal services.
@@ -114,7 +114,7 @@ An attacker can modify the url parameter to target internal systems:
     - Description: Validate and sanitize user input to ensure it adheres to expected URL formats and doesn’t contain unsafe characters.
     - Best Practices:
         - Use robust URL parsing libraries to validate user inputs.
-        - Reject malformed or dangerous URL formats (e.g., file://, ftp://).
+        - Reject malformed or dangerous URL formats (e.g., ```file://```, ```ftp://```).
 6. Rate Limiting
         - Description: Implement rate limiting to prevent abuse of SSRF vulnerabilities, such as sending a high volume of requests to internal or external services.
         - Best Practices:
