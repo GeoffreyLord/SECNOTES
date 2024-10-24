@@ -5,7 +5,7 @@
 
 **Description**: 
 -
-This repo is to be used to reference infromation that pertains to security testing and evaluation. In this repo, one will find brief notes and examples of common security findings, usage of common tools, and scripting examples. Listed below is a brief discription of the contents of each directory. 
+This repo is to be used to reference infromation that pertains to security testing and evaluation. In this repo, brief notes and examples of common security findings, usage of common tools, and scripting examples can be found. Listed below is a brief discription of the contents of each directory. 
 
 
 
