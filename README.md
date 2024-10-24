@@ -30,7 +30,7 @@ This repo is to be used to reference infromation that pertains to security testi
     - **Examples**: (IPTables, Auditd)
 
 4. ```4_Scripting_Notes```:
-    - **Description**: This directory contains scripting examples that may may be used for security testing. 
+    - **Description**: This directory contains scripting examples to reference. 
     - **Examples**: (Python API Call Script, Python CSV Parsing Script, Python Regex Search Script)
 
 5. ```5_MSC_Tools_Notes```: 
