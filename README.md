@@ -51,13 +51,6 @@ In addition to security notes, this repo contains a dockerfile called Tempest. T
 *Note*: This repo is a living sheet of notes. Changes and improvements are to be expected. 
 
 
-## TODO
-- [ ] OpenVAS
-- [ ] Nessus
-- [ ] Security Control Tools
-     - [ ] IP Tables
-     - [ ] AuditD
-     - [ ] SELinux
-    
+## TODO    
 - [ ] More Scripting Examples
 - [ ] Create Tempest
