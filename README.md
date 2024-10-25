@@ -52,5 +52,4 @@ In addition to security notes, this repo contains a dockerfile called Tempest. T
 
 
 ## TODO    
-- [ ] More Scripting Examples
 - [ ] Create Tempest
